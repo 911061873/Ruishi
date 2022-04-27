@@ -1,0 +1,27 @@
+name: 上传到 test_pypi
+on:
+  push:
+    tags:
+      - v**
+permissions:
+  contents: read
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: '安装 Python'
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: '安装编译工具'
+        run: pip install build --user
+      - name: '编译包'
+        run: python -m build
+      - name: '发布到 test.pypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
