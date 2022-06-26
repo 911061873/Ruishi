@@ -18,7 +18,8 @@ class Ruishi:
             request.headers['token'] = self.token
             yield request
 
-    def __init__(self, user: data_models.UserCreate):
+    def __init__(self, username, password, uuid=None, token=None):
+        user = data_models.UserCreate(username=username, password=password, uuid=uuid, token=token)
         self.client = httpx.Client(base_url=Ruishi.BASE_URL)
         self.async_client = httpx.AsyncClient(base_url=Ruishi.BASE_URL)
         self.username = user.username

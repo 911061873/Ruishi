@@ -1,4 +1,4 @@
-version = (0, 1, 8)
+version = (0, 1, 9)
 
 __name__ = 'ruishi'
 __version__ = '.'.join([str(i) for i in version])
